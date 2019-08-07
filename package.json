@@ -1,0 +1,93 @@
+{
+  "name": "try-react-graphql",
+  "version": "1.0.0",
+  "description": "try and play React + TypeScript + GraphQL 🐕",
+  "main": "src/index.js",
+  "dependencies": {
+    "graphql-tag": "^2.10.1",
+    "react": "^16.8.6",
+    "react-apollo": "^2.5.8",
+    "react-dom": "^16.8.6",
+    "react-router": "^5.0.1",
+    "react-router-dom": "^5.0.1"
+  },
+  "devDependencies": {
+    "@apollo/react-hooks": "0.1.0-beta.12",
+    "@babel/cli": "^7.1.0",
+    "@babel/core": "^7.1.0",
+    "@babel/preset-env": "^7.1.0",
+    "@babel/preset-react": "^7.0.0",
+    "@emotion/styled": "^10.0.15",
+    "@types/enzyme": "^3.10.3",
+    "@types/enzyme-adapter-react-16": "^1.0.5",
+    "@types/jest": "^24.0.15",
+    "@types/node": "~12.6.0",
+    "@types/react": "~16.8.0",
+    "@types/react-dom": "~16.8.5",
+    "@types/react-router": "^5.0.3",
+    "@types/react-router-dom": "^4.3.4",
+    "@types/react-test-renderer": "^16.8.3",
+    "@typescript-eslint/eslint-plugin": "^1.12.0",
+    "@typescript-eslint/parser": "^1.12.0",
+    "apollo-boost": "^0.1.28",
+    "babel-jest": "^24.8.0",
+    "babel-loader": "^8.0.6",
+    "commitizen": "~4.0.0",
+    "css-loader": "^3.1.0",
+    "cz-emoji": "^1.1.2",
+    "dotenv": "^8.0.0",
+    "enzyme": "^3.10.0",
+    "enzyme-adapter-react-16": "~1.14.0",
+    "enzyme-to-json": "^3.3.5",
+    "eslint": "^5.0.0",
+    "eslint-config-prettier": "^6.0.0",
+    "eslint-plugin-jest": "^22.13.7",
+    "eslint-plugin-prettier": "^3.1.0",
+    "eslint-plugin-react": "^7.14.2",
+    "graphql": "^14.4.2",
+    "html-webpack-plugin": "^3.2.0",
+    "husky": "~3.0.0",
+    "jest": "^24.8.0",
+    "jest-environment-jsdom-fourteen": "^0.1.0",
+    "lint-staged": "~9.2.0",
+    "prettier": "^1.18.2",
+    "react-apollo-hooks": "^0.2.1",
+    "react-scripts": "^3.0.1",
+    "react-test-renderer": "^16.8.6",
+    "style-loader": "^0.23.1",
+    "ts-jest": "^24.0.2",
+    "ts-loader": "^6.0.4",
+    "tsconfig-paths-webpack-plugin": "^3.2.0",
+    "typescript": "^3.5.3",
+    "webpack": "^4.36.1",
+    "webpack-cli": "^3.3.6",
+    "webpack-dev-server": "^3.7.2"
+  },
+  "scripts": {
+    "test": "jest",
+    "start": "webpack-dev-server --hot --open",
+    "build": "webpack --config webpack.config.js",
+    "commit": "git-cz",
+    "lint": "eslint -c ./.eslintrc.json --fix 'src/**/*.{ts,tsx}'"
+  },
+  "config": {
+    "commitizen": {
+      "path": "./node_modules/cz-emoji"
+    }
+  },
+  "husky": {
+    "hooks": {
+      "pre-commit": "lint-staged"
+    }
+  },
+  "lint-staged": {
+    "*.tsx": [
+      "eslint -c ./.eslintrc.json --fix",
+      "git add"
+    ],
+    "*.ts": [
+      "eslint -c ./.eslintrc.json --fix",
+      "git add"
+    ]
+  }
+}
