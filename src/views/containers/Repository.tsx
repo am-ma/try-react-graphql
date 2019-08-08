@@ -11,7 +11,7 @@ const Repository: FunctionComponent<Props> = () => {
   const [repositoryCount, setRepositoryCount] = useState(0);
   const [repositoryEdges, setRepositoryEdges] = useState([]);
 
-  const onChangeRepositoryName = async (event: React.ChangeEvent<HTMLInputElement>) => {
+  const onChangeRepositoryName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRepositoryName(event.target.value);
   };
   const onClickSearchButton = async () => {
