@@ -5,16 +5,18 @@ import { useApolloClient } from '@apollo/react-hooks';
 
 type Props = {};
 const Repository: FunctionComponent<Props> = () => {
+  const client = useApolloClient();
+
   const [repositoryName, setRepositoryName] = useState('react');
   const [repositoryCount, setRepositoryCount] = useState(0);
   const [repositoryEdges, setRepositoryEdges] = useState([]);
 
-  const client = useApolloClient();
   const onChangeRepositoryName = async (event: React.ChangeEvent<HTMLInputElement>) => {
     setRepositoryName(event.target.value);
   };
   const onClickSearchButton = async () => {
     const { data } = await repository.manuallyFetchRepositories(client, repositoryName);
+    console.log(data);
     if (data) {
       if (data.search.repositoryCount) {
         setRepositoryCount(data.search.repositoryCount);
