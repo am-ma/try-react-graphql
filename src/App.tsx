@@ -1,18 +1,26 @@
 import React, { FunctionComponent, lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
+import { BrowserRouter } from 'react-router-dom';
+import { ApolloProvider } from '@apollo/react-hooks';
 
-const Home = lazy(() => import('./containers/Home'));
+import client from './graphql-client';
+
+const Home = lazy(() => import('./views/containers/Home'));
+const Repository = lazy(() => import('./views/containers/Repository'));
 
 const App: FunctionComponent = () => {
   return (
-    <>
-      <Suspense fallback={<div>Loading...</div>}>
-        <Switch>
-          <Route path="/" component={Home} />
-          <Redirect to="/" />
-        </Switch>
-      </Suspense>
-    </>
+    <ApolloProvider client={client}>
+      <BrowserRouter>
+        <Suspense fallback={<div>Loading...</div>}>
+          <Switch>
+            <Route path="/repository" component={Repository} />
+            <Route path="/" component={Home} />
+            <Redirect to="/" />
+          </Switch>
+        </Suspense>
+      </BrowserRouter>
+    </ApolloProvider>
   );
 };
 

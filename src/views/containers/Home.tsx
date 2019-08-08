@@ -2,7 +2,6 @@ import React, { FunctionComponent } from 'react';
 import home from '~/services/home';
 
 type Props = {};
-type State = {};
 const Home: FunctionComponent<Props> = () => {
   const { loading, data, error } = home.fetchUser();
 
@@ -14,7 +13,7 @@ const Home: FunctionComponent<Props> = () => {
 
   return (
     <>
-      <h2>{user.name}</h2>
+      <h1>{user.name}</h1>
       <p>{user.bio}</p>
     </>
   );

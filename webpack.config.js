@@ -12,18 +12,24 @@ const envKeys = Object.keys(env).reduce((prev, next) => {
 }, {});
 module.exports = {
   // target: 'node',
+  context: path.resolve(__dirname, 'src'),
   entry: path.join(__dirname, 'src/index.tsx'),
   output: {
     path: path.resolve(__dirname, 'dist'),
-    filename: 'bundle.js',
+    filename: '[name].bundle.js',
   },
   module: {
     rules: [
-      { test: /\.(tsx)$/, use: 'babel-loader' },
       { test: /\.css$/, use: ['style-loader', 'css-loader'] },
       {
-        test: /\.tsx?$/,
+        test: /\.ts[x]?$/,
         loader: 'ts-loader',
+        options: {
+          compilerOptions: {
+            sourceMap: true,
+          },
+          configFile: 'tsconfig.json',
+        },
       },
     ],
   },
@@ -35,16 +41,25 @@ module.exports = {
   resolve: {
     plugins: [
       new TsconfigPathsPlugin({
-        configFile: path.join(__dirname, 'tsconfig.json'),
+        configFile: 'tsconfig.json',
       }),
     ],
     extensions: ['.ts', '.js', '.tsx'],
   },
   plugins: [
     new HtmlWebpackPlugin({
-      template: path.join(__dirname, 'src', 'index.html'),
+      template: './index.html',
       filename: './index.html',
     }),
     new webpack.DefinePlugin(envKeys),
   ],
+  node: {
+    module: 'empty',
+    dgram: 'empty',
+    dns: 'mock',
+    fs: 'empty',
+    net: 'empty',
+    tls: 'empty',
+    child_process: 'empty',
+  },
 };
