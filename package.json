@@ -6,7 +6,7 @@
   "dependencies": {
     "graphql-tag": "^2.10.1",
     "react": "^16.8.6",
-    "react-apollo": "^2.5.8",
+    "react-apollo": "^3.0.0",
     "react-dom": "^16.8.6",
     "react-router": "^5.0.1",
     "react-router-dom": "^5.0.1"
@@ -51,7 +51,6 @@
     "jest-environment-jsdom-fourteen": "^0.1.0",
     "lint-staged": "~9.2.0",
     "prettier": "^1.18.2",
-    "react-apollo-hooks": "^0.2.1",
     "react-scripts": "^3.0.1",
     "react-test-renderer": "^16.8.6",
     "style-loader": "^0.23.1",
