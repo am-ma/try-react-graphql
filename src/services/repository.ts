@@ -1,5 +1,5 @@
-import { ApolloClient } from 'apollo-client';
 import gql from 'graphql-tag';
+import { useLazyQuery } from '@apollo/react-hooks';
 
 export const SEARCH_REPOSITORY_QUERY = gql`
   query SearchRepository($query: String!) {
@@ -18,17 +18,12 @@ export const SEARCH_REPOSITORY_QUERY = gql`
   }
 `;
 
-const manuallyFetchRepositories = (client: ApolloClient<object>, repositoryName: string) => {
-  const query = repositoryName;
-
-  return client.query({
-    query: SEARCH_REPOSITORY_QUERY,
-    variables: { query },
-  });
+const useLazyFetchRepositories = () => {
+  return useLazyQuery(SEARCH_REPOSITORY_QUERY);
 };
 
 const repository = {
-  manuallyFetchRepositories,
+  useLazyFetchRepositories,
 };
 
 export default repository;

@@ -1,31 +1,31 @@
 import React, { FunctionComponent, useState } from 'react';
 import repository from '~/services/repository';
 import RepositoryList from '../components/RepositoryList';
-import { useApolloClient } from '@apollo/react-hooks';
 
 type Props = {};
 const Repository: FunctionComponent<Props> = () => {
-  const client = useApolloClient();
-
   const [repositoryName, setRepositoryName] = useState('react');
-  const [repositoryCount, setRepositoryCount] = useState(0);
-  const [repositoryEdges, setRepositoryEdges] = useState([]);
+  const [fetch, { loading, data, error }] = repository.useLazyFetchRepositories();
 
+  // events
   const onChangeRepositoryName = (event: React.ChangeEvent<HTMLInputElement>) => {
     setRepositoryName(event.target.value);
   };
   const onClickSearchButton = async () => {
-    const { data } = await repository.manuallyFetchRepositories(client, repositoryName);
-    console.log(data);
-    if (data) {
-      if (data.search.repositoryCount) {
-        setRepositoryCount(data.search.repositoryCount);
-      }
-      if (data.search.edges) {
-        setRepositoryEdges(data.search.edges);
-      }
-    }
+    fetch({
+      variables: { query: repositoryName },
+    });
   };
+
+  if (error) return <p>error! {error.message}</p>;
+
+  // repos
+  let repositories = <></>;
+  if (loading) {
+    repositories = <p>loading ...</p>;
+  } else if (data && data.search.edges) {
+    repositories = <RepositoryList repositoryEdges={data.search.edges} />;
+  }
 
   return (
     <>
@@ -34,8 +34,8 @@ const Repository: FunctionComponent<Props> = () => {
       <button type="button" onClick={onClickSearchButton}>
         Search
       </button>
-      <div>hit: {repositoryCount}</div>
-      <RepositoryList repositoryEdges={repositoryEdges} />
+      <p>Hit: {data && data.search ? data.search.repositoryCount : '--'}</p>
+      {repositories}
     </>
   );
 };
