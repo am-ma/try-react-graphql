@@ -1,9 +1,11 @@
 import React, { FunctionComponent, lazy, Suspense } from 'react';
 import { Redirect, Route, Switch } from 'react-router';
-import { BrowserRouter, Link } from 'react-router-dom';
+import { BrowserRouter } from 'react-router-dom';
+import { Grommet } from 'grommet';
 import { ApolloProvider } from '@apollo/react-hooks';
 
 import client from './graphql-client';
+import TheHeader from './views/components/TheHeader';
 
 const Home = lazy(() => import('./views/containers/Home'));
 const Repository = lazy(() => import('./views/containers/Repository'));
@@ -12,31 +14,21 @@ const ToggleStar = lazy(() => import('./views/containers/ToggleStar'));
 const App: FunctionComponent = () => {
   return (
     <ApolloProvider client={client}>
-      <BrowserRouter>
-        <header>
-          <ul>
-            <li>
-              <Link to="/">Home</Link>
-            </li>
-            <li>
-              <Link to="/repository">Repository</Link>
-            </li>
-            <li>
-              <Link to="/toggleStar">Toggle Star</Link>
-            </li>
-          </ul>
-        </header>
-        <article>
-          <Suspense fallback={<div>Loading...</div>}>
-            <Switch>
-              <Route path="/toggleStar" component={ToggleStar} />
-              <Route path="/repository" component={Repository} />
-              <Route path="/" component={Home} />
-              <Redirect to="/" />
-            </Switch>
-          </Suspense>
-        </article>
-      </BrowserRouter>
+      <Grommet plain>
+        <BrowserRouter>
+          <TheHeader />
+          <article>
+            <Suspense fallback={<div>Loading...</div>}>
+              <Switch>
+                <Route path="/toggleStar" component={ToggleStar} />
+                <Route path="/repository" component={Repository} />
+                <Route path="/" component={Home} />
+                <Redirect to="/" />
+              </Switch>
+            </Suspense>
+          </article>
+        </BrowserRouter>
+      </Grommet>
     </ApolloProvider>
   );
 };
